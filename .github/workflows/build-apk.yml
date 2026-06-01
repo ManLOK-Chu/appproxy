@@ -24,6 +24,13 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Cache tun2socks.aar
+        uses: actions/cache@v4
+        id: cache-aar
+        with:
+          path: android/app/libs/tun2socks.aar
+          key: tun2socks-aar-${{ hashFiles('tun2socks/engine/**', 'tun2socks/proxy/**', 'tun2socks/core/**', 'tun2socks/go.sum') }}
+
       - name: Set up Java
         uses: actions/setup-java@v4
         with:
@@ -37,23 +44,33 @@ jobs:
           cache: true
 
       - name: Set up Go
+        if: steps.cache-aar.outputs.cache-hit != 'true'
         uses: actions/setup-go@v5
         with:
           go-version: '1.26'
           cache-dependency-path: tun2socks/go.sum
 
       - name: Install gomobile
+        if: steps.cache-aar.outputs.cache-hit != 'true'
         run: |
           go install golang.org/x/mobile/cmd/gomobile@latest
           echo "$HOME/go/bin" >> $GITHUB_PATH
 
       - name: Build tun2socks.aar
+        if: steps.cache-aar.outputs.cache-hit != 'true'
         run: |
           export PATH="$HOME/go/bin:$PATH"
           cd tun2socks
           go get
           gomobile init
           gomobile bind -o ../android/app/libs/tun2socks.aar -target android -androidapi 28 ./engine
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: ~/.gradle/caches
+          key: gradle-${{ runner.os }}-${{ hashFiles('android/**/*.gradle.kts', 'android/settings.gradle.kts') }}
+          restore-keys: gradle-${{ runner.os }}-
 
       - name: Flutter pub get
         run: flutter pub get
