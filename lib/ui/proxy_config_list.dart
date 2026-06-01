@@ -144,7 +144,7 @@ class _ProxyListHomeState extends State<ProxyListHome> {
             content: Text(S.of(context).text_delete_proxy_tips),
             actions: [
               TextButton(
-                child: Text(S.current.text_cancel),
+                child: Text(S.of(context).text_cancel),
                 onPressed: () {
                   Navigator.of(context).pop(false);
                 },

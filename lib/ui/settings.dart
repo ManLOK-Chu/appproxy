@@ -59,7 +59,7 @@ class _AppSettingsState extends State<AppSettings> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: Text(S.current.text_settings),
+        title: Text(S.of(context).text_settings),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Column(
@@ -290,7 +290,7 @@ class _AppSettingsState extends State<AppSettings> {
               padding: const EdgeInsets.only(left: 10.0),
               width: MediaQuery.of(context).size.width,
               height: 50.0,
-              child: Center(child: Text('${S.current.text_about} appproxy')),
+              child: Center(child: Text('${S.of(context).text_about} appproxy')),
             )),
             onTap: () {
               const String buildDate = String.fromEnvironment('BUILD_DATE', defaultValue: 'unknown');
