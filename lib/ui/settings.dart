@@ -26,6 +26,7 @@ class _AppSettingsState extends State<AppSettings> {
   bool _isCheckUpdate = true;
   bool _isCheckWifi = true;
   bool _isEnableDarkMode = false;
+  bool _isUDPDirect = true;
 
   void initDeviceInfo() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
@@ -37,6 +38,7 @@ class _AppSettingsState extends State<AppSettings> {
     _isCheckUpdate = await AppSetings.getCheckUpdate();
     _isCheckWifi = await AppSetings.getCheckWifi();
     _isEnableDarkMode = await AppSetings.getEnableDarkMode();
+    _isUDPDirect = await AppSetings.getUDPDirect();
     _version = packageInfo.version;
     if (_isCheckUpdate) {
       showUpdateDialog(context, _version, _arch);
@@ -234,6 +236,45 @@ class _AppSettingsState extends State<AppSettings> {
                 _isCheckWifi = !_isCheckWifi;
                 debugPrint('isCheckWifi:$_isCheckWifi');
                 AppSetings.setCheckWifi(_isCheckWifi);
+              });
+            },
+          ),
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(left: 10.0, top: 10.0),
+            child: Text(S.of(context).text_proxy,
+                style: const TextStyle(color: Colors.lightBlue)),
+          ),
+          GestureDetector(
+            child: Card(
+              child: Container(
+                padding: const EdgeInsets.only(left: 10.0),
+                width: MediaQuery.of(context).size.width,
+                height: 50.0,
+                child: Row(
+                  children: [
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(S.of(context).text_udp_direct)),
+                    const Spacer(),
+                    Switch(
+                        value: _isUDPDirect,
+                        onChanged: (bool newValue) {
+                          debugPrint('isUDPDirect:$newValue');
+                          setState(() {
+                            _isUDPDirect = newValue;
+                            AppSetings.setUDPDirect(newValue);
+                          });
+                        })
+                  ],
+                ),
+              ),
+            ),
+            onTap: () {
+              setState(() {
+                _isUDPDirect = !_isUDPDirect;
+                debugPrint('isUDPDirect:$_isUDPDirect');
+                AppSetings.setUDPDirect(_isUDPDirect);
               });
             },
           ),

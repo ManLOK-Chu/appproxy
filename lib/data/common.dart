@@ -5,6 +5,7 @@ class AppSetings {
   static const String _CheckUpdate = "isUpdate";
   static const String _CheckWifi = "isCheckWifi";
   static const String _enableDarkMode = "isEnableDarkMode";
+  static const String _udpDirect = "isUDPDirect";
 
   static Future<bool> getCnOrEn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -42,5 +43,13 @@ class AppSetings {
   static Future<bool> setEnableDarkMode(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setBool(_enableDarkMode, value);
+  }
+  static Future<bool> getUDPDirect() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_udpDirect) ?? true;
+  }
+  static Future<bool> setUDPDirect(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.setBool(_udpDirect, value);
   }
 }

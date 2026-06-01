@@ -174,6 +174,7 @@ class _ProxyListHomeState extends State<ProxyListHome> {
     _isSelectedProxyName = data["proxyName"];
     _currentProxyData = data;
     _currentProxyData['appProxyPackageList'] = appProxyPackageList.getListString();
+    _currentProxyData['udpDirect'] = await AppSetings.getUDPDirect();
     try {
       bool result = await platform.invokeMethod('startVpn', _currentProxyData);
       if (result) {

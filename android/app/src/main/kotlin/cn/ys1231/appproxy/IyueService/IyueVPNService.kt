@@ -72,6 +72,7 @@ class IyueVPNService : VpnService() {
         val proxyType = data["proxyType"].toString()
         val proxyUser = data["proxyUser"].toString()
         val proxyPass = data["proxyPass"].toString()
+        val udpDirect = data["udpDirect"] as? Boolean ?: false
 
         // 创建并显示前台服务通知
         val notificationIntent = Intent(this, MainActivity::class.java)
@@ -131,6 +132,7 @@ class IyueVPNService : VpnService() {
             key.tcpSendBufferSize = ""
             key.tcpReceiveBufferSize = ""
             key.tcpModerateReceiveBuffer = false
+            key.udpDirect = udpDirect
             Engine.insert(key)
             Engine.start()
             Log.d(TAG, "startEngine: $key")
