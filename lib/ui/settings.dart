@@ -68,7 +68,7 @@ class _AppSettingsState extends State<AppSettings> {
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.only(left: 10.0, top: 10.0),
             child:
-                Text(S.of(context).LanguageChoice, style: const TextStyle(color: Colors.lightBlue)),
+                Text(S.of(context).languageChoice, style: const TextStyle(color: Colors.lightBlue)),
           ),
           GestureDetector(
             child: Card(
