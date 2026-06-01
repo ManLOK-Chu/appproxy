@@ -119,7 +119,7 @@ class _iyueMainPageState extends State<iyueMainPage> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: const Icon(Icons.home),
-            label: S.current.text_proxy,
+            label: S.of(context).text_proxy,
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.person),
