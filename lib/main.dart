@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
                 GlobalCupertinoLocalizations.delegate,
                 GlobalWidgetsLocalizations.delegate,
               ],
-              supportedLocales: S.delegate.supportedLocales,
+              supportedLocales: S.supportedLocales,
               theme: ThemeData(
                 // 使用深紫色作为主题颜色方案的种子颜色
                   colorScheme: ColorScheme.fromSeed(
